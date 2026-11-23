@@ -1,0 +1,51 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install --upgrade pip
+          .venv/bin/pip install -e "./python[dev]" -e "./langchain[dev]"
+      - name: Lint and typecheck
+        run: |
+          .venv/bin/ruff check python langchain
+          .venv/bin/ruff format --check python langchain
+          .venv/bin/pyright
+      - name: Free sample calls
+        run: |
+          .venv/bin/python -m stockdatum_example sample form4
+          .venv/bin/python -m stockdatum_langchain sample
+
+  typescript:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: typescript/package-lock.json
+      - name: Install
+        working-directory: typescript
+        run: npm ci
+      - name: Lint and typecheck
+        working-directory: typescript
+        run: |
+          npm run lint
+          npm run typecheck
+      - name: Free sample call
+        working-directory: typescript
+        run: npm run sample
