@@ -1,0 +1,23 @@
+[project]
+name = "stockdatum-langchain"
+version = "0.1.0"
+description = "LangChain tools for the StockDatum Filings sample and form4 routes."
+requires-python = ">=3.10"
+dependencies = [
+  "langchain-core>=0.3.60",
+  "python-dotenv>=1.0.1",
+  "x402[evm,requests,httpx]==2.29.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pyright>=1.1.407",
+  "ruff>=0.8.4",
+]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
