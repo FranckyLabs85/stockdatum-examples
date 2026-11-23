@@ -1,0 +1,33 @@
+{
+  "name": "stockdatum-example",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Example x402 fetch and axios clients for the StockDatum Filings API.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "sample": "tsx src/cli.ts sample",
+    "form4:fetch": "tsx src/cli.ts form4-fetch",
+    "form4:axios": "tsx src/cli.ts form4-axios",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@x402/axios": "2.32.0",
+    "@x402/evm": "2.32.0",
+    "@x402/fetch": "2.32.0",
+    "axios": "^1.13.2",
+    "dotenv": "^17.2.3",
+    "viem": "^2.48.11"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^22.19.1",
+    "eslint": "^9.39.1",
+    "tsx": "^4.20.6",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.4"
+  }
+}
