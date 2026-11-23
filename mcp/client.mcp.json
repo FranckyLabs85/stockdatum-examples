@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "stockdatum": {
+      "type": "streamable-http",
+      "url": "https://api.stockdatum.com/mcp"
+    }
+  }
+}
