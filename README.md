@@ -15,7 +15,26 @@ The API states that responses are not investment advice.
 - `python/` — x402 Python client (`x402[httpx,evm]`). `sample` calls `GET /sample/form4`. `form4` calls `GET /v1/form4?ticker=AAPL&limit=1`.
 - `typescript/` — the same calls. The paid call is implemented twice, with `@x402/fetch` and `@x402/axios`.
 - `langchain/` — LangChain tools `stockdatum_sample` and `stockdatum_form4`.
-- `mcp/client.mcp.json` — streamable-HTTP client snippet for `https://api.stockdatum.com/mcp`. That endpoint is coming soon / pending until it is live. On 2026-11-23, `GET` returned HTTP 404 `unknown path`.
+- `mcp/client.mcp.json` — streamable-HTTP client for the live MCP server `com.stockdatum/sec-filings` at `https://api.stockdatum.com/mcp`.
+
+## Connect the MCP server
+
+The endpoint is live. Registry name: `com.stockdatum/sec-filings`. Transport: streamable HTTP. `POST` a JSON-RPC message to `https://api.stockdatum.com/mcp`. `GET` is not the call.
+
+`mcp/client.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "stockdatum": {
+      "type": "streamable-http",
+      "url": "https://api.stockdatum.com/mcp"
+    }
+  }
+}
+```
+
+`initialize` and `tools/list` are not charged. A paid `tools/call` uses the same parameters and USDC prices as the REST routes. Send the payment on `params._meta["x402/payment"]`. There is no API key.
 
 ## Quick start
 
